@@ -1,11 +1,24 @@
 # Clawd Runner: Cityscapes
 
+<p align="center">
+  <img src="https://github.com/naemazam/Clawd-Runner-Cityscapes/blob/main/assets/gamelogo.png" width="120" />
+</p>
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Clawd Runner: Cityscapes** is an advanced, modular reimagining of the classic infinite runner game. it features dynamic aesthetic themes, real-world cityscape backgrounds
+**Clawd Runner: Cityscapes** is a modular reimagining of the classic infinite runner game ft Clawd by Claude Code. it features dynamic aesthetic themes, real-world cityscape backgrounds
 
+<p align="center">
+  <img src="https://github.com/naemazam/Clawd-Runner-Cityscapes/blob/main/assets/poster.png" width="600" />
+</p>
 
+[Play](https://naemazam.github.io/Clawd-Runner-Cityscapes/)
 ---
+<p align="center">
+  <img src="https://github.com/naemazam/Clawd-Runner-Cityscapes/blob/main/assets/1.png" width="350" />
+  <img src="https://github.com/naemazam/Clawd-Runner-Cityscapes/blob/main/assets/2.png" width="350" />
+</p> 
+
 ## 🎮 How to Play
 
 ### Desktop Controls
