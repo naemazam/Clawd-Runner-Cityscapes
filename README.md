@@ -1,2 +1,49 @@
-# Clawd-Runner-Cityscapes
-Clawd Runner Game: Cityscapes 
+# Clawd Runner: Cityscapes
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**Clawd Runner: Cityscapes** is an advanced, modular reimagining of the classic infinite runner game. Engineered with vanilla JavaScript and the HTML5 Canvas API, it features dynamic aesthetic themes, real-world cityscape backgrounds, synthetic web audio, and a highly optimized, component-based architecture.
+
+
+---
+## 🎮 How to Play
+
+### Desktop Controls
+
+[ SPACE ] or [ UP ARROW ] : Jump
+
+[ DOWN ARROW ] : Duck
+
+[ ESC ] : Pause / Open System Config Menu
+
+###  Mobile / Touch Controls
+
+Tap Top Half of Screen : Jump
+
+Tap Bottom Half of Screen : Duck
+
+
+## ✨ Features
+
+*   🌆 **Dynamic Aesthetics:** Switch seamlessly between **Cyberpunk**, **Sci-Fi**, **Modern**, and **Classic** themes. Each theme alters the color palette, visual filters, and shadow rendering.
+*   🗺️ **Global Locations:** Run through procedurally blended vector skylines of New York City, Shanghai, Dhaka, or stick to the Classic 8-bit desert.
+  
+---
+
+## 📂 Project Structure
+
+The project has been refactored from a monolithic single-file script into a clean, scalable folder structure:
+
+```text
+Clawd-Runner-Cityscapes/
+├── index.html        # Main entry point and UI layout
+├── styles.css        # Theme variables and responsive styling
+└── js/
+    ├── state.js      # Global variables, DOM cache, and asset loading
+    ├── entities.js   # Player and Obstacle classes/logic
+    ├── renderer.js   # Canvas drawing, parallax backgrounds, and composition
+    ├── engine.js     # Core game loop, collision detection, and spawn rates
+    └── controller.js # Event listeners for keyboard, touch, and UI
+
+```
+
