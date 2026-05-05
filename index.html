@@ -127,7 +127,7 @@
         /* Game Logo and Animations */
         .game-logo {
             width: 100%;
-            max-width: 320px;
+            max-width: 250px;
             height: auto;
             margin: 0 auto 25px auto;
             display: block;
@@ -307,7 +307,7 @@
         <div class="panel">
             <h1 style="color: var(--text-main); font-size: 1.5rem; letter-spacing: 2px;">ENJOYING THE RUN?</h1>
             <p style="margin-bottom: 20px; color: var(--text-muted); line-height: 1.5; font-size: 0.95rem;">
-                You've reached a score of 200! Help support Clawd Runner by starring the repository on GitHub.
+                You've reached a score of 100! Help support Clawd Runner by starring the repository on GitHub.
             </p>
             <button id="btn-star-github" style="margin-top: 10px; background: var(--accent); color: var(--bg-page);">⭐ STAR ON GITHUB</button>
             <button id="btn-star-later" style="margin-top: 15px; border-color: var(--text-muted); color: var(--text-muted); background: transparent;">MAYBE LATER</button>
@@ -669,7 +669,7 @@
             }
 
             // --- GITHUB STAR PROMPT TRIGGER ---
-            if (state.score >= 200 && !state.hasPromptedStar) {
+            if (state.score >= 100 && !state.hasPromptedStar) {
                 state.hasPromptedStar = true;
                 state.paused = true;
                 githubStarOverlay.classList.add('active');
