@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyberpunk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Clawd Runner: Cityscapes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="top-bar">
+        <div style="color: var(--text-muted);" id="os-label">CLAWD_OS // v3.3_CLASSIC</div>
+        <div class="score-board">SCORE: <span id="score">0</span></div>
+    </div>
+
+    <div id="game-wrapper">
+        <button class="btn-icon" id="btn-settings" aria-label="Settings">⚙</button>
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+        <div id="menu-overlay" class="overlay active">
+            <div class="panel">
+                <h1>SYSTEM CONFIG</h1>
+                
+                <div class="form-group">
+                    <label>AESTHETIC</label>
+                    <select id="theme-select">
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="modern">Modern</option>
+                        <option value="scifi">Sci-Fi</option>
+                        <option value="classic">Classic</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>LOCATION</label>
+                    <select id="loc-select">
+                        <option value="classic">Classic Dino</option>
+                        <option value="newyork">New York City</option>
+                        <option value="shanghai">Shanghai</option>
+                        <option value="dhaka">Dhaka</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>AUDIO</label>
+                    <input type="checkbox" id="sound-toggle" checked>
+                </div>
+
+                <button id="btn-start">INITIALIZE ROUTINE</button>
+            </div>
+        </div>
+
+        <div id="game-over-overlay" class="overlay">
+            <div class="panel">
+                <h1 style="color: var(--accent);">CRITICAL FAILURE</h1>
+                <p>DISTANCE COVERED: <br><span id="final-score" style="font-weight: bold; font-size: 2rem; color: var(--text-main);">0</span></p>
+                <button id="btn-restart">REBOOT</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-hint">[SPACE/UP/TAP TOP] JUMP • [DOWN/TAP BTM] DUCK • [ESC] MENU</div>
+
+    <!-- Load Scripts in exact order to share global scope safely -->
+    <script src="js/state.js"></script>
+    <script src="js/entities.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/controller.js"></script>
+</body>
+</html>
