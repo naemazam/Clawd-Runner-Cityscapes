@@ -124,6 +124,22 @@
         }
         .overlay.active .panel { transform: scale(1) translateY(0); }
 
+        /* Game Logo and Animations */
+        .game-logo {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            margin: 0 auto 25px auto;
+            display: block;
+            filter: drop-shadow(0 0 10px var(--accent));
+            animation: pulseLogo 2s infinite alternate;
+        }
+
+        @keyframes pulseLogo {
+            0% { filter: drop-shadow(0 0 5px var(--accent)); opacity: 0.9; transform: scale(0.98); }
+            100% { filter: drop-shadow(0 0 20px var(--accent)); opacity: 1; transform: scale(1.02); }
+        }
+
         h1 { 
             color: var(--accent); margin: 0 0 25px 0; text-transform: uppercase; 
             letter-spacing: 3px; font-size: 1.8rem; text-shadow: 0 0 10px var(--accent);
@@ -230,7 +246,7 @@
 
     <div id="app-container">
         <div id="top-bar">
-            <div style="color: var(--text-muted);" id="os-label">CLAWD_OS // v5.0_ULTIMATE</div>
+            <div style="color: var(--text-muted);" id="os-label">CLAWD_OS // v5.1_ULTIMATE</div>
             <div class="score-board">
                 <div class="score-text-wrapper">
                     <div class="score-high">HI: <span id="hi-score">0</span></div>
@@ -255,10 +271,10 @@
     <!-- Menus (Fixed to screen) -->
     <div id="menu-overlay" class="overlay active">
         <div class="panel">
-            <h1>CLAWD RUNNER</h1>
+            <img src="https://raw.githubusercontent.com/naemazam/Clawd-Runner-Cityscapes/main/assets/gamelogo.png" alt="Clawd Runner Logo" class="game-logo">
             
             <div class="form-group">
-                <label>AESTHETIC</label>
+                <label>MODE</label>
                 <select id="theme-select">
                     <option value="cyberpunk">Cyberpunk</option>
                     <option value="modern">Modern</option>
@@ -286,6 +302,18 @@
         </div>
     </div>
 
+    <!-- GitHub Star Interruption Overlay -->
+    <div id="github-star-overlay" class="overlay">
+        <div class="panel">
+            <h1 style="color: var(--text-main); font-size: 1.5rem; letter-spacing: 2px;">ENJOYING THE RUN?</h1>
+            <p style="margin-bottom: 20px; color: var(--text-muted); line-height: 1.5; font-size: 0.95rem;">
+                You've reached a score of 200! Help support Clawd Runner by starring the repository on GitHub.
+            </p>
+            <button id="btn-star-github" style="margin-top: 10px; background: var(--accent); color: var(--bg-page);">⭐ STAR ON GITHUB</button>
+            <button id="btn-star-later" style="margin-top: 15px; border-color: var(--text-muted); color: var(--text-muted); background: transparent;">MAYBE LATER</button>
+        </div>
+    </div>
+
     <div id="game-over-overlay" class="overlay">
         <div class="panel">
             <h1 style="color: var(--accent); animation: none;">SYSTEM FAILURE</h1>
@@ -306,6 +334,7 @@
         
         const menuOverlay = document.getElementById('menu-overlay');
         const gameOverOverlay = document.getElementById('game-over-overlay');
+        const githubStarOverlay = document.getElementById('github-star-overlay');
         
         const THEMES = {
             cyberpunk: { bg: '#05070a', ground: '#161b22', line: '#00f2ff', obs1: '#ff0055', obs2: '#00f2ff', filter: 'none' },
@@ -316,7 +345,16 @@
 
         let currentTheme = 'cyberpunk';
         let currentLocation = 'classic';
-        let state = { active: false, paused: true, score: 0, speed: 6, frameCount: 0, groundY: 340, bgOffset: 0 };
+        let state = { 
+            active: false, 
+            paused: true, 
+            score: 0, 
+            speed: 6, 
+            frameCount: 0, 
+            groundY: 340, 
+            bgOffset: 0,
+            hasPromptedStar: false 
+        };
         const config = { sound: true };
 
         // High Score Init
@@ -564,12 +602,14 @@
             
             state.score = 0; state.speed = 6.5; state.frameCount = 0;
             state.active = true; state.paused = false; state.bgOffset = 0;
+            state.hasPromptedStar = false; // Reset prompt trigger
             obstacles = []; particles = []; player.y = state.groundY - player.h; player.dy = 0; player.ducking = false; player.jumps = 0;
             scoreEl.innerText = '0';
             
             newHighScoreMsg.style.display = 'none';
             menuOverlay.classList.remove('active');
             gameOverOverlay.classList.remove('active');
+            githubStarOverlay.classList.remove('active');
             
             if (AudioCtx.state === 'suspended') AudioCtx.resume();
             loop();
@@ -597,6 +637,20 @@
             }, 800);
         }
 
+        // GitHub Prompt Actions
+        function resumeFromStarPrompt() {
+            githubStarOverlay.classList.remove('active');
+            state.paused = false;
+            loop(); // Kickstart the loop again
+        }
+
+        document.getElementById('btn-star-github').onclick = () => {
+            window.open('https://github.com/naemazam/Clawd-Runner-Cityscapes', '_blank');
+            resumeFromStarPrompt();
+        };
+        
+        document.getElementById('btn-star-later').onclick = resumeFromStarPrompt;
+
         function loop() {
             if (state.paused) return; // Stop drawing entirely if fully paused
             update();
@@ -612,6 +666,14 @@
                     if(particles[i].life <= 0) particles.splice(i, 1);
                 }
                 return;
+            }
+
+            // --- GITHUB STAR PROMPT TRIGGER ---
+            if (state.score >= 200 && !state.hasPromptedStar) {
+                state.hasPromptedStar = true;
+                state.paused = true;
+                githubStarOverlay.classList.add('active');
+                return; // Suspend update loop immediately
             }
 
             state.frameCount++;
@@ -693,7 +755,7 @@
 
         // --- INPUTS (DOUBLE JUMP ENABLED) ---
         function handleAction(action) {
-            if (!state.active && (menuOverlay.classList.contains('active') || gameOverOverlay.classList.contains('active'))) return;
+            if (!state.active && (menuOverlay.classList.contains('active') || gameOverOverlay.classList.contains('active') || githubStarOverlay.classList.contains('active'))) return;
             
             if (action === 'jump' && player.jumps < player.maxJumps && !player.ducking) {
                 player.dy = player.jumps === 0 ? -15.5 : -13; // Second jump is slightly weaker
