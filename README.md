@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Clawd Runner: Cityscapes** is an advanced, modular reimagining of the classic infinite runner game. Engineered with vanilla JavaScript and the HTML5 Canvas API, it features dynamic aesthetic themes, real-world cityscape backgrounds, synthetic web audio, and a highly optimized, component-based architecture.
+**Clawd Runner: Cityscapes** is an advanced, modular reimagining of the classic infinite runner game. it features dynamic aesthetic themes, real-world cityscape backgrounds
 
 
 ---
